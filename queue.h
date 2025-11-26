@@ -1,15 +1,18 @@
 #ifndef OOP_QUEUE_H
 #define OOP_QUEUE_H
+#include "dynamic_array.h"  
 
 namespace oop {
-template<typename T>
-class queue {
-    private:
-    T* mData;
-    size_t mCap;
-    size_t mSize;
-    size_t mFront;
 
+template<typename T>
+class queue : public oop::dynamic_array<T> {
+    private:
+    using base = dynamic_array<T>;
+    using base::mData;
+    using base::mSize;
+    using base::mCap;
+    size_t mFront;
+      
 
     void expandCapacity(size_t usercap){ // ขยาย capacity
         T* arr = new T[usercap];
@@ -36,6 +39,7 @@ class queue {
     ~queue(){ // destructor
         delete[] mData;
     };
+
     queue(const queue<T> &a){ // copy constructor
         mData = new T[a.cap()]();
         mCap = a.cap();
@@ -73,11 +77,11 @@ class queue {
     }
     
     bool empty() const {
-        return mSize == 0;
+        return base::empty();
     } 
 
     size_t size() const {
-        return mSize;
+        return base::size();
     };
 
     const T& front() const{
