@@ -37,13 +37,13 @@ class dynamic_array {
     void pop(){
         mSize--; 
     };
-    
+
     public : 
-    dynamic_array() {
-        mData = nullptr;
+    dynamic_array(size_t cap) {
+        mData = new T[cap]();
+        mCap = cap;
         mSize = 0;
-        mCap = 0;
-    }; // constructor
+    } // constructor
 
     ~dynamic_array(){ // destructor
         delete[] mData;
