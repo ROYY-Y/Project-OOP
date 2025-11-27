@@ -100,7 +100,7 @@ public:
 
     /* ---------- public API ---------- */
 
-    size_t cap() const { return mCap; }
+    size_t capacity() const { return mCap; }
     size_t size() const { return base::size(); }
     bool empty() const { return base::empty(); }
 
