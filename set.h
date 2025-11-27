@@ -36,7 +36,7 @@ namespace oop
         // จำนวน element ใน set
         int size() const
         {
-            return AVLTree<T>::getSize();
+            return AVLTree<T>::size();
         }
 
         // ว่างไหม

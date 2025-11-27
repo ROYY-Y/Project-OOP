@@ -37,9 +37,8 @@ class dynamic_array {
     void pop(){
         mSize--; 
     };
-
-    public:
-
+    
+    public : 
     dynamic_array() {
         mData = nullptr;
         mSize = 0;

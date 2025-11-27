@@ -1,33 +1,49 @@
 #include <iostream>
+#include "queue.h"
+#include "vector.h"
 #include "set.h"
 #include "map.h"
 #include "directed_graph.h"
+#include "priority_queue.h"
+using namespace std;
 
 int main(){
-    oop::DirectedGraph g;
+    oop::Map<int, string> mp;
 
-    g.addEdge(1, 2);
-    g.addEdge(1, 3);
-    g.addEdge(2, 4);
-    g.addEdge(3, 4);
-    g.addEdge(4, 1);
+    cout << "== Test Insert ==" << endl;
+    mp.insert(10, "apple");
+    mp.insert(20, "banana");
+    mp.insert(30, "cat");
 
-    std::cout << "Graph:\n";
-    g.printGraph();
+    cout << "Contains 20? " << (mp.contains(20) ? "YES" : "NO") << endl;
+    cout << "Contains 99? " << (mp.contains(99) ? "YES" : "NO") << endl;
 
-    std::cout << "BFS from 1: ";
-    g.BFS(1);
+    cout << "\n== Test get(key) ==" << endl;
+    string* p = mp.get(30);
+    if (p) cout << "get(30) = " << *p << endl;
+    else   cout << "get(30) = NOT FOUND" << endl;
 
-    std::cout << "DFS from 1: ";
-    g.DFS(1);
+    p = mp.get(999);
+    if (p) cout << "get(999) = " << *p << endl;
+    else   cout << "get(999) = NOT FOUND" << endl;
 
-    std::cout << "Has edge 1->2? " << g.hasEdge(1, 2) << "\n";
-    g.removeEdge(1, 2);
-    std::cout << "Has edge 1->2 after removal? " << g.hasEdge(1, 2) << "\n";
+    cout << "\n== Test operator[] ==" << endl;
 
-    g.removeVertex(4);
-    std::cout << "Graph after removing vertex 4:\n";
-    g.printGraph();
+    cout << "mp[10] = " << mp[10] << endl; 
+    cout << "mp[20] = " << mp[20] << endl; 
 
-    return 0;
+    cout << "mp[50] = " << mp[50] << endl;  
+
+    mp[20] = "blueberry"; //
+    cout << "mp[20] updated = " << mp[20] << endl;
+
+    cout << "\n== Test Insert Duplicate ==" << endl;
+    mp.insert(10, "dog"); 
+    cout << "mp[10] = " << mp[10] << "  (should still be 'apple')" << endl;
+
+    cout << "\n== Loop Test ==" << endl;
+
+    for (int k : {10, 20, 30, 50}) {
+        cout << k << " -> " << mp[k] << endl;
+    }
 }

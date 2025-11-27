@@ -69,7 +69,7 @@ namespace oop
             return nodeHeight(n->left) - nodeHeight(n->right);
         }
 
-        NodeT *findNode(const T &value)
+        NodeT *findNode(const T &value) const
         {
             return findRec(this->root, value);
         }

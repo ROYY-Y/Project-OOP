@@ -23,18 +23,6 @@ namespace oop
     public:
         Map() : AVLTree<std::pair<K, V>, PairKeyCompare<K, V>>() {}
 
-        // operator[] จะสร้าง key ใหม่ถ้าไม่เจอ
-        V &operator[](const K &key)
-        {
-            NodeT *node = this->findNode({key, V()});
-            if (!node)
-            {
-                this->insert(key, V()); // <-- เรียก insert แบบ 2 arguments
-                node = this->findNode({key, V()});
-            }
-            return node->data.second;
-        }
-
         void insert(const K &key, const V &value)
         {
             AVLTree<std::pair<K, V>, PairKeyCompare<K, V>>::insert({key, value});
@@ -42,15 +30,26 @@ namespace oop
 
         bool contains(const K &key) const
         {
-            return this->find({key, V()}) != nullptr;
+            return this->findNode({key, V()}) != nullptr;
         }
 
         V *get(const K &key)
         {
-            NodeT *node = this->find({key, V()});
+            NodeT *node = this->findNode({key, V()});
             if (!node)
                 return nullptr;
             return &(node->data.second);
+        }
+
+        V &operator[](const K &key)
+        {
+            NodeT *node = this->findNode({key, V()});
+            if (!node)
+            {
+                this->insert(key, V()); // ✅ ส่ง key กับ value แยกกัน
+                node = this->findNode({key, V()});
+            }
+            return node->data.second;
         }
     };
 }
